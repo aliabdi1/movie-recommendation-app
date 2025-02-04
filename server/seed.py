@@ -1,17 +1,23 @@
-#!/usr/bin/env python3
+from config import db, app
+from models import User, Movie, Review
 
-# Standard library imports
-from random import randint, choice as rc
+with app.app_context():
+    print("Seeding database...")
 
-# Remote library imports
-from faker import Faker
+    db.session.query(User).delete()
+    db.session.query(Movie).delete()
+    db.session.query(Review).delete()
 
-# Local imports
-from app import app
-from models import db
+    user1 = User(username="AliAbdi")
+    user2 = User(username="JohnDoe")
 
-if __name__ == '__main__':
-    fake = Faker()
-    with app.app_context():
-        print("Starting seed...")
-        # Seed code goes here!
+    movie1 = Movie(title="Inception", genre="Sci-Fi")
+    movie2 = Movie(title="Titanic", genre="Romance")
+
+    review1 = Review(rating="5 Stars", user=user1, movie=movie1)
+    review2 = Review(rating="4 Stars", user=user2, movie=movie2)
+
+    db.session.add_all([user1, user2, movie1, movie2, review1, review2])
+    db.session.commit()
+
+    print("Seeding complete!")
