@@ -16,7 +16,7 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String(80), unique=True, nullable=False)
     watchlist = db.relationship('Movie', secondary=watchlist, backref=('users_watching'))
 
-    reviews = db.relationship('Review', back_populates='users', cascade='all, delete')
+    reviews = db.relationship('Review', back_populates='user', cascade='all, delete')
     
     serialize_rules = ('-reviews.user',)
 
@@ -33,7 +33,7 @@ class Movie(db.Model, SerializerMixin):
     title = db.Column(db.String(120), nullable=False)
     genre = db.Column(db.String(50))
 
-    reviews = db.relationship('Review', back_populates='movies', cascade='all, delete-orphan')
+    reviews = db.relationship('Review', back_populates='movie', cascade='all, delete-orphan')
     
     serialize_rules = ('-reviews.movie',)
 
