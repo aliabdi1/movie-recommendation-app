@@ -1,9 +1,13 @@
-from flask import Flask, jsonify, request
+from flask import Flask
+from flask_cors import CORS
 from flask_restful import Api, Resource
-from config import app, db
+from config import app, db, migrate
 from models import db, User, Movie, Review
 
 api = Api(app)
+
+db.init_app(app)
+migrate.init_app(app, db)
 
 # Home Route
 @app.route('/')
@@ -187,5 +191,36 @@ def delete_review(id):
 
 # ========================= SERVER =========================
 
+
+@app.route('/users/<int:user_id>/watchlist', methods=['GET'])
+def get_watchlist(user_id):
+    user = User.query.get_or_404(user_id)
+    return jsonify([movie.to_dict() for movie in user.watchlist])
+
+@app.route('/users/<int:user_id>/watchlist/<int:movie_id>', methods=['POST'])
+def add_to_watchlist(user_id, movie_id):
+    user = User.query.get_or_404(user_id)
+    movie = Movie.query.get_or_404(movie_id)
+    
+    if movie not in user.watchlist:
+        user.watchlist.append(movie)
+        db.session.commit()
+    
+    return jsonify({"message": "Movie added to watchlist"}), 200
+
+@app.route('/users/<int:user_id>/watchlist/<int:movie_id>', methods=['DELETE'])
+def remove_from_watchlist(user_id, movie_id):
+    user = User.query.get_or_404(user_id)
+    movie = Movie.query.get_or_404(movie_id)
+    
+    if movie in user.watchlist:
+        user.watchlist.remove(movie)
+        db.session.commit()
+    
+    return jsonify({"message": "Movie removed from watchlist"}), 200
+
+with app.app_context():
+    db.create_all()
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5555)
