@@ -1,3 +1,4 @@
+/* App.css */
 :root {
   --bg: #282c34;
   --header: #fff;
@@ -5,3 +6,34 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Arial', sans-serif;
+}
+
+.navbar-custom {
+  background-color: var(--bg);
+}
+
+.navbar-brand,
+.nav-link {
+  color: var(--header) !important;
+}
+
+.nav-link:hover {
+  color: var(--link) !important;
+}
+
+.btn-primary {
+  background-color: var(--link) !important;
+  border-color: var(--link) !important;
+}
+
+.btn-primary:hover {
+  background-color: darken(var(--link), 10%);
+}
+
+h1, h2 {
+  color: var(--header);
+}
