@@ -1,49 +1,115 @@
-Movie Review App
+🎬 Movie Recommendation App - Backend
 
-Overview
+This is the Flask API backend for the Movie Recommendation App, built with Flask-RESTful, SQLAlchemy, and Flask-Migrate. It provides RESTful endpoints to manage users, movies, and watchlists.
 
-Movie Review App is a simple and user-friendly platform that allows users to browse, review, and rate movies. Users can explore popular and trending films, leave their thoughts, and engage with a community of movie enthusiasts.
+🚀 Features
 
-#Features
+User Management: Create, retrieve, and manage users.
+Movie Database: Add and view movies.
+Watchlist Functionality: Users can add movies to their watchlist with ratings.
+CRUD Operations: Full CRUD support for watchlists, with create & read for users and movies.
+Relational Database: One-to-many and many-to-many relationships with SQLAlchemy ORM.
 
-Browse a collection of movies with detailed descriptions
+📦 Project Structure
 
-Leave reviews and ratings for movies
+server/
+├── app.py
+├── models.py
+├── resources/
+│   ├── user.py
+│   ├── movie.py
+│   └── watchlist.py
+├── migrations/
+├── instance/
+│   └── database.db
+└── requirements.txt
 
-View other users' reviews and ratings
+⚙️ Technologies Used
 
-Search for specific movies
+Python 3.8+
+Flask
+Flask-RESTful
+Flask-SQLAlchemy
+Flask-Migrate
+SQLite (for development)
 
-User authentication for personalized experiences
+📥 Installation & Setup
+
+Clone the repository:
+
+git clone git@github.com:aliabdi1/movie-recommendation-app.git
+
+cd movie-recommendation-app/server
 
 
-#nstall dependencies:
+Create a virtual environment:
 
-npm install
+python3 -m venv venv
+
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+
+Install dependencies:
+
+pip install -r requirements.txt
+
+
+Run database migrations:
+
+flask db init
+flask db migrate -m "Initial migration"
+flask db upgrade
 
 Start the development server:
 
-npm start
-
-Technologies Used
-
-React (Frontend UI)
-
-Node.js & Express (Backend API)
-
-JWT (Authentication)
+flask run
 
 
-Contributing
+🔑 API Endpoints
 
-Fork the repository.
+Users
+    POST /users - Create a new user
+    GET /users/<user_id> - Get a user's details
 
-Create a new branch (feature-branch-name).
+Movies
+    POST /movies - Add a new movie
+    GET /movies - Retrieve all movies
 
-Commit your changes.
+Watchlist
+    GET /users/<user_id>/watchlist - Get a user's watchlist
+    POST /users/<user_id>/watchlist/<movie_id> - Add a movie to watchlist
+    PATCH /users/<user_id>/watchlist/<movie_id> - Update rating for a movie in watchlist
+    DELETE /users/<user_id>/watchlist/<movie_id> - Remove a movie from watchlist
 
-Push to your branch and submit a pull request.
 
-License
+🗃️ Database Schema
 
-This project is licensed under the MIT License.
+User: id, username, email
+
+Movie: id, title, genre
+
+Watchlist: id, user_id, movie_id, rating (Many-to-Many 
+with extra attribute rating)
+
+
+📤 Deployment
+
+For deployment, consider using:
+
+Gunicorn + Nginx for production servers.
+
+Docker for containerization.
+
+🤝 Contributing
+
+1.Fork the repository.
+2.Create your feature branch: git checkout -b feature-name
+3.Commit your changes: git commit -m 'Add new feature'
+4.Push to the branch: git push origin feature-name
+5.Open a Pull Request.
+
+
+📝 License
+
+This project is licensed under the MIT License. Feel free to use and modify it for your learning or personal projects.
+
