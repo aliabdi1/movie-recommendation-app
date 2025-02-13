@@ -13,10 +13,12 @@
 
 # Python & Virtual Environment
 .venv
-__pycache__
+__pycache__/
 .pytest_cache
 *.db
-instance
+*.pyc
+instance/
+instance/database.db
 
 # Node.js-related ignores
 /node_modules

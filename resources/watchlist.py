@@ -1,16 +1,10 @@
-from flask import request
-from flask_restful import Resource, reqparse, Api
-from flask import jsonify
+from flask import request, jsonify
+from flask_restful import Resource, reqparse
 from models import db, Watchlist, User, Movie
-
-
-
-
 
 # Request Parser
 parser = reqparse.RequestParser()
 parser.add_argument('rating', type=int, required=False)  # Optional rating field
-
 
 class WatchlistResource(Resource):
     def get(self, user_id):
@@ -24,9 +18,10 @@ class WatchlistResource(Resource):
             } for item in user.watchlist
         ]
         return jsonify(watchlist)
-        
+
     def post(self, user_id, movie_id):
-        data = request.get_json()
+        # Handle empty request body gracefully
+        data = request.get_json(silent=True) or {}
         rating = data.get('rating')
 
         user = User.query.get(user_id)
@@ -35,27 +30,30 @@ class WatchlistResource(Resource):
         if not user or not movie:
             return {"message": "User or Movie not found"}, 404
 
+        # Prevent duplicate entries
+        existing_entry = Watchlist.query.filter_by(user_id=user_id, movie_id=movie_id).first()
+        if existing_entry:
+            return {"message": "Movie already in watchlist"}, 400
+
         watchlist_entry = Watchlist(user_id=user_id, movie_id=movie_id, rating=rating)
         db.session.add(watchlist_entry)
         db.session.commit()
 
         return {"message": "Movie added to watchlist"}, 201
-    
+
     def patch(self, user_id, movie_id):
         data = request.get_json()
         rating = data.get('rating')
 
-    # Match the query logic with DELETE (which works fine)
         watchlist_entry = Watchlist.query.filter_by(user_id=user_id, movie_id=movie_id).first()
 
         if not watchlist_entry:
-            return {"message": "Watchlist entry not found"}, 404  # Fixed message
+            return {"message": "Watchlist entry not found"}, 404
 
         watchlist_entry.rating = rating
         db.session.commit()
 
         return {"message": "Watchlist rating updated successfully"}, 200
-
 
     def delete(self, user_id, movie_id):
         entry = Watchlist.query.filter_by(user_id=user_id, movie_id=movie_id).first()
@@ -64,4 +62,3 @@ class WatchlistResource(Resource):
             db.session.commit()
             return {"message": "Movie removed from watchlist"}, 200
         return {"message": "Movie not found in watchlist"}, 404
-
