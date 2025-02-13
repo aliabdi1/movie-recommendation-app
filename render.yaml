@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: movie-recommendation-backend
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
+    envVars:
+      - key: SECRET_KEY
+        value: "5496bcffed66d27a5422a667d2cb41758a28254fc136f817"
