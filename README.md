@@ -1,115 +1,46 @@
-🎬 Movie Recommendation App - Backend
+🎬 MovieMania - Frontend
 
-This is the Flask API backend for the Movie Recommendation App, built with Flask-RESTful, SQLAlchemy, and Flask-Migrate. It provides RESTful endpoints to manage users, movies, and watchlists.
+Welcome to MovieMania, your go-to app for discovering, managing, and curating your favorite movies! 🍿
 
 🚀 Features
 
-User Management: Create, retrieve, and manage users.
-Movie Database: Add and view movies.
-Watchlist Functionality: Users can add movies to their watchlist with ratings.
-CRUD Operations: Full CRUD support for watchlists, with create & read for users and movies.
-Relational Database: One-to-many and many-to-many relationships with SQLAlchemy ORM.
+Browse Movies: Discover a collection of movies with detailed information.
 
-📦 Project Structure
+Add Movies: Easily add new movies to the database.
 
-server/
-├── app.py
-├── models.py
-├── resources/
-│   ├── user.py
-│   ├── movie.py
-│   └── watchlist.py
-├── migrations/
-├── instance/
-│   └── database.db
-└── requirements.txt
+Manage Watchlist: Add or remove movies from your personal watchlist with a simple click.
 
-⚙️ Technologies Used
+User-Friendly Interface: Smooth navigation with a sleek, modern design.
 
-Python 3.8+
-Flask
-Flask-RESTful
-Flask-SQLAlchemy
-Flask-Migrate
-SQLite (for development)
-
-📥 Installation & Setup
-
-Clone the repository:
-
-git clone git@github.com:aliabdi1/movie-recommendation-app.git
-
-cd movie-recommendation-app/server
+Responsive Design: Optimized for both desktop and mobile devices.
 
 
-Create a virtual environment:
+🛠️ Tech Stack
 
-python3 -m venv venv
+Frontend: React, CSS (with gradients for stunning visuals)
 
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+State Management: React Hooks (useState, useEffect)
 
+API Communication: Fetch API
 
-Install dependencies:
+Form Handling: Formik , custom form validation
 
-pip install -r requirements.txt
+Routing: React Router
 
-
-Run database migrations:
-
-flask db init
-flask db migrate -m "Initial migration"
-flask db upgrade
-
-Start the development server:
-
-flask run
-
-
-🔑 API Endpoints
-
-Users
-    POST /users - Create a new user
-    GET /users/<user_id> - Get a user's details
-
-Movies
-    POST /movies - Add a new movie
-    GET /movies - Retrieve all movies
-
-Watchlist
-    GET /users/<user_id>/watchlist - Get a user's watchlist
-    POST /users/<user_id>/watchlist/<movie_id> - Add a movie to watchlist
-    PATCH /users/<user_id>/watchlist/<movie_id> - Update rating for a movie in watchlist
-    DELETE /users/<user_id>/watchlist/<movie_id> - Remove a movie from watchlist
-
-
-🗃️ Database Schema
-
-User: id, username, email
-
-Movie: id, title, genre
-
-Watchlist: id, user_id, movie_id, rating (Many-to-Many 
-with extra attribute rating)
-
-
-📤 Deployment
-
-For deployment, consider using:
-
-Gunicorn + Nginx for production servers.
-
-Docker for containerization.
 
 🤝 Contributing
 
-1.Fork the repository.
-2.Create your feature branch: git checkout -b feature-name
-3.Commit your changes: git commit -m 'Add new feature'
-4.Push to the branch: git push origin feature-name
-5.Open a Pull Request.
+1.Fork the repository
 
+2.Create your feature branch (git checkout -b feature/your-feature)
 
-📝 License
+3.Commit your changes (git commit -m 'Add new feature')
 
-This project is licensed under the MIT License. Feel free to use and modify it for your learning or personal projects.
+4.Push to the branch (git push origin feature/your-feature)
+
+5.Open a Pull Request
+
+📜 License
+This project is licensed under the MIT License.
+5267ba4 (Updated UI and README for MovieMania)
 
