@@ -60,8 +60,7 @@ function Movies() {
           <div key={movie.id} className="movie-card">
             <h2>{movie.title}</h2>
             <p>{movie.genre}</p>
-            {movie.release_year && <p>📅 {movie.release_year}</p>}  {/* ✅ Display release year if available */}
-
+            {movie.release_year && <p>📅 {movie.release_year}</p>}  
             <button
               className={`btn-watchlist ${
                 watchlist.some((w) => w.id === movie.id) ? "in-watchlist" : ""
